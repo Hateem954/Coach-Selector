@@ -3,14 +3,13 @@ import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-
 const DashboardScreen = () => {
     const navigation = useNavigation();
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     // Function to toggle theme
     const toggleTheme = () => {
-        setIsDarkMode(prevMode => !prevMode);
+        setIsDarkMode((prevMode) => !prevMode);
     };
 
     return (
@@ -31,7 +30,7 @@ const DashboardScreen = () => {
             <View style={[styles.bottomNav, isDarkMode && styles.darkBottomNav]}>
                 <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Home')}>
                     <View style={styles.circleIconContainer}>
-                        <Icon name="home" size={24} color={isDarkMode ? '#fff' : '#000'} />
+                        <Icon name="home" size={24} color={isDarkMode ? '#000' : '#000'} />
                     </View>
                     <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Home</Text>
                 </TouchableOpacity>
@@ -40,7 +39,7 @@ const DashboardScreen = () => {
                     onPress={() => navigation.navigate('PostsScreen')}
                 >
                     <View style={styles.circleIconContainer}>
-                        <Icon name="add-circle" size={28} color={isDarkMode ? '#fff' : '#000'} />
+                        <Icon name="add-circle" size={28} color={isDarkMode ? '#000' : '#000'} />
                     </View>
                     <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Add Post</Text>
                 </TouchableOpacity>
@@ -49,13 +48,13 @@ const DashboardScreen = () => {
                     onPress={() => navigation.navigate('Settings', { toggleTheme, isDarkMode })}
                 >
                     <View style={styles.circleIconContainer}>
-                        <Icon name="settings" size={24} color={isDarkMode ? '#fff' : '#000'} />
+                        <Icon name="settings" size={24} color={isDarkMode ? '#000' : '#000'} />
                     </View>
                     <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Settings</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Profile')}>
                     <View style={styles.circleIconContainer}>
-                        <Icon name="person" size={24} color={isDarkMode ? '#fff' : '#000'} />
+                        <Icon name="person" size={24} color={isDarkMode ? '#000' : '#000'} />
                     </View>
                     <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Profile</Text>
                 </TouchableOpacity>
@@ -75,7 +74,8 @@ const styles = StyleSheet.create({
     },
     appBar: {
         flexDirection: 'row',
-        alignItems: 'center',
+        justifyContent: 'center', // Center aligns the text horizontally
+        alignItems: 'center', // Vertically center the text
         paddingHorizontal: 15,
         paddingVertical: 10,
         backgroundColor: '#fff',
@@ -91,9 +91,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#444',
     },
     appBarTitle: {
-        fontSize: 18,
+        fontSize: 25,
         color: '#333',
         fontWeight: 'bold',
+        textAlign: 'center',
     },
     darkAppBarTitle: {
         color: '#fff',
@@ -142,72 +143,86 @@ const styles = StyleSheet.create({
 export default DashboardScreen;
 
 
+
 // import React, { useState } from 'react';
-// import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-// import { useNavigation, DrawerActions } from '@react-navigation/native';
+// import { View, StyleSheet, TouchableOpacity, Text, Image, ScrollView } from 'react-native';
+// import { useNavigation } from '@react-navigation/native';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
+// import Carousel from 'react-native-snap-carousel'; // Import the carousel component
 
 // const DashboardScreen = () => {
 //     const navigation = useNavigation();
 //     const [isDarkMode, setIsDarkMode] = useState(false);
 
+//     // List of images for the slider (can be URLs or local images)
+//     const imageData = [
+//         { id: '1', src: 'https://via.placeholder.com/350x150/FF5733/ffffff?text=Image+1' },
+//         { id: '2', src: 'https://via.placeholder.com/350x150/33FF57/ffffff?text=Image+2' },
+//         { id: '3', src: 'https://via.placeholder.com/350x150/3357FF/ffffff?text=Image+3' },
+//     ];
+
 //     // Function to toggle theme
 //     const toggleTheme = () => {
-//         setIsDarkMode(prevMode => !prevMode);
+//         setIsDarkMode((prevMode) => !prevMode);
 //     };
+
+//     // Render function for carousel items
+//     const renderItem = ({ item }) => (
+//         <View style={styles.carouselItem}>
+//             <Image source={{ uri: item.src }} style={styles.carouselImage} />
+//         </View>
+//     );
 
 //     return (
 //         <View style={[styles.container, isDarkMode && styles.darkContainer]}>
 //             {/* App Bar at the Top */}
 //             <View style={[styles.appBar, isDarkMode && styles.darkAppBar]}>
-//                 <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
-//                     <Icon name="menu" size={28} color={isDarkMode ? '#fff' : '#000'} />
-//                 </TouchableOpacity>
-
-//                 {/* Centered Text */}
-//                 <Text style={[styles.appBarTitle, isDarkMode && styles.darkAppBarText]}>Dashboard</Text>
-
-//                 {/* Optionally, you can add another icon/button on the right side */}
-//                 {/* <TouchableOpacity onPress={() => {}} >
-//                     <Icon name="notifications" size={28} color={isDarkMode ? '#fff' : '#000'} />
-//                 </TouchableOpacity> */}
+//                 <Text style={[styles.appBarTitle, isDarkMode && styles.darkAppBarTitle]}>
+//                     Dashboard
+//                 </Text>
 //             </View>
 
-//             {/* Main Content Area */}
-//             <View style={[styles.content, isDarkMode && styles.darkContent]}>
-//                 {/* Content or Dashboard Specific Items */}
-//                 <Text style={styles.dashboardText}>Welcome to the Dashboard</Text>
+//             {/* Image Carousel */}
+//             <View style={styles.carouselContainer}>
+//                 <Carousel
+//                     data={imageData}
+//                     renderItem={renderItem}
+//                     sliderWidth={350} // Set the width of the carousel slider
+//                     itemWidth={300} // Set the width of each item
+//                     inactiveSlideScale={0.9} // Scale effect when the item is not active
+//                     inactiveSlideOpacity={0.7} // Opacity effect for inactive slides
+//                 />
 //             </View>
 
 //             {/* Bottom Navigation Bar */}
 //             <View style={[styles.bottomNav, isDarkMode && styles.darkBottomNav]}>
-//                 <TouchableOpacity
-//                     style={styles.navItem}
-//                     onPress={() => navigation.navigate('Dashboard')} // Ensuring it stays active as the home page
-//                 >
+//                 <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Home')}>
 //                     <View style={styles.circleIconContainer}>
-//                         <Icon name="home" size={24} color={isDarkMode ? '#fff' : '#000'} />
+//                         <Icon name="home" size={24} color={isDarkMode ? '#000' : '#000'} />
 //                     </View>
 //                     <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Home</Text>
 //                 </TouchableOpacity>
-//                 <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('')}>
+//                 <TouchableOpacity
+//                     style={styles.navItem}
+//                     onPress={() => navigation.navigate('PostsScreen')}
+//                 >
 //                     <View style={styles.circleIconContainer}>
-//                         <Icon name="search" size={24} color={isDarkMode ? '#fff' : '#000'} />
+//                         <Icon name="add-circle" size={28} color={isDarkMode ? '#000' : '#000'} />
 //                     </View>
-//                     <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>search</Text>
+//                     <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Add Post</Text>
 //                 </TouchableOpacity>
 //                 <TouchableOpacity
 //                     style={styles.navItem}
 //                     onPress={() => navigation.navigate('Settings', { toggleTheme, isDarkMode })}
 //                 >
 //                     <View style={styles.circleIconContainer}>
-//                         <Icon name="settings" size={24} color={isDarkMode ? '#fff' : '#000'} />
+//                         <Icon name="settings" size={24} color={isDarkMode ? '#000' : '#000'} />
 //                     </View>
 //                     <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Settings</Text>
 //                 </TouchableOpacity>
 //                 <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Profile')}>
 //                     <View style={styles.circleIconContainer}>
-//                         <Icon name="person" size={24} color={isDarkMode ? '#fff' : '#000'} />
+//                         <Icon name="person" size={24} color={isDarkMode ? '#000' : '#000'} />
 //                     </View>
 //                     <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Profile</Text>
 //                 </TouchableOpacity>
@@ -227,48 +242,47 @@ export default DashboardScreen;
 //     },
 //     appBar: {
 //         flexDirection: 'row',
-//         alignItems: 'center',
+//         justifyContent: 'center', // Center aligns the text horizontally
+//         alignItems: 'center', // Vertically center the text
 //         paddingHorizontal: 15,
 //         paddingVertical: 10,
 //         backgroundColor: '#fff',
 //         borderBottomWidth: 1,
 //         borderBottomColor: '#e0e0e0',
 //         position: 'absolute',
-//         top: 0,  // Ensures the app bar is at the top
+//         top: 0,
 //         left: 0,
 //         right: 0,
-//         zIndex: 1, // Ensures the app bar stays above other content
-//         justifyContent: 'space-between',
+//         zIndex: 1,
 //     },
 //     darkAppBar: {
 //         backgroundColor: '#444',
 //     },
 //     appBarTitle: {
-//         flex: 1,
-//         textAlign: 'center',
-//         fontSize: 20,
-//         fontWeight: 'bold',
+//         fontSize: 25,
 //         color: '#333',
+//         fontWeight: 'bold',
+//         textAlign: 'center',
 //     },
-//     darkAppBarText: {
+//     darkAppBarTitle: {
 //         color: '#fff',
 //     },
-//     content: {
-//         flex: 1,
-//         marginTop: 60, // Ensures the content doesn't overlap with the app bar
+//     carouselContainer: {
+//         marginTop: 80, // Push the carousel down so it's not covered by the app bar
 //         justifyContent: 'center',
 //         alignItems: 'center',
+//         height: 250, // Set a height for the carousel
 //     },
-//     darkContent: {
-//         backgroundColor: '#333',
+//     carouselItem: {
+//         backgroundColor: '#fff',
+//         borderRadius: 10,
+//         height: 200,
+//         overflow: 'hidden',
 //     },
-//     dashboardText: {
-//         fontSize: 24,
-//         fontWeight: 'bold',
-//         color: '#333',
-//     },
-//     darkNavText: {
-//         color: '#fff',
+//     carouselImage: {
+//         width: '100%',
+//         height: '100%',
+//         resizeMode: 'cover',
 //     },
 //     bottomNav: {
 //         flexDirection: 'row',
@@ -296,6 +310,9 @@ export default DashboardScreen;
 //     navText: {
 //         fontSize: 12,
 //         color: '#333',
+//     },
+//     darkNavText: {
+//         color: '#fff',
 //     },
 // });
 

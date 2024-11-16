@@ -12,6 +12,10 @@ import SettingsScreen from './src/settingscreen'; // Import SettingsScreen
 import playerparent from './src/playerparent'; // Import parent details screen
 import AddPost from './src/post'; // Import AddPost screen
 import PostsScreen from './src/clickpost'; // Import PostsScreen (clickpost)
+import hasAccademy from './src/hasAccademy';
+
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -101,6 +105,15 @@ const App = () => {
         <Stack.Screen
           name="PostsScreen"
           component={PostsScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+
+        <Stack.Screen
+          name="hasAccademy"
+          component={hasAccademy}
           options={{
             headerShown: false,
           }}
