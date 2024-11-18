@@ -13,7 +13,7 @@ import playerparent from './src/playerparent'; // Import parent details screen
 import AddPost from './src/post'; // Import AddPost screen
 import PostsScreen from './src/clickpost'; // Import PostsScreen (clickpost)
 import hasAccademy from './src/hasAccademy';
-
+import UploadVideo from './src/addVideo';
 
 
 
@@ -110,6 +110,13 @@ const App = () => {
           }}
         />
 
+        <Stack.Screen
+          name="UploadVideo"
+          component={UploadVideo}
+          options={{
+            headerShown: false,
+          }}
+        />
 
         <Stack.Screen
           name="hasAccademy"

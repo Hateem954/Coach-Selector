@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 
+
+
 const DashboardScreen = ({ navigation }) => {
     // Data for the list
     const menuItems = [
