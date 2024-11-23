@@ -6,12 +6,18 @@ import {
     TouchableOpacity,
     StyleSheet,
     Alert,
+    Modal,
 } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
-const VideoUploader = () => {
+const VideoUploaderPopup = ({ isVisible }) => {
     const [videoTitle, setVideoTitle] = useState('');
     const [videoFile, setVideoFile] = useState(null);
+
+    const navigation = useNavigation();
 
     const pickVideo = async () => {
         try {
@@ -30,7 +36,7 @@ const VideoUploader = () => {
         }
     };
 
-    const handleUpload = () => {
+    const handleUpload = async () => {
         if (!videoTitle) {
             Alert.alert('Error', 'Please enter a video title');
             return;
@@ -40,45 +46,126 @@ const VideoUploader = () => {
             return;
         }
 
-        // Placeholder for upload functionality
-        Alert.alert(
-            'Upload Successful',
-            `Video "${videoTitle}" uploaded: ${videoFile.name}`
-        );
+        const formData = new FormData();
+        formData.append('vedio_title', videoTitle);
+        formData.append('vedio', {
+            uri: videoFile.uri,
+            name: videoFile.name,
+            type: videoFile.type,
+        });
+        formData.append('status', 'active');
+
+        try {
+            const response = await axios.post('http://10.0.2.2:8000/api/vedio', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            if (response.status === 201 || response.status === 200) {
+                Alert.alert('Success', 'Video uploaded successfully!');
+                setVideoTitle('');
+                setVideoFile(null);
+                navigation.goBack();
+            } else {
+                Alert.alert('Error', 'Failed to upload video');
+            }
+        } catch (error) {
+            console.error('Error uploading video:', error);
+            Alert.alert(
+                'Error',
+                error.response?.data?.message || 'An error occurred during upload'
+            );
+        }
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.label}>Enter Video Title:</Text>
-            <TextInput
-                style={styles.input}
-                value={videoTitle}
-                onChangeText={setVideoTitle}
-                placeholder="Video Title"
-            />
-            <TouchableOpacity style={styles.button} onPress={pickVideo}>
-                <Text style={styles.buttonText}>Select Video</Text>
-            </TouchableOpacity>
-            {videoFile && (
-                <Text style={styles.fileName}>Selected: {videoFile.name}</Text>
-            )}
-            <TouchableOpacity style={styles.uploadButton} onPress={handleUpload}>
-                <Text style={styles.buttonText}>Upload Video</Text>
-            </TouchableOpacity>
-        </View>
+        <Modal
+            visible={isVisible}
+            transparent={true}
+            animationType="slide"
+            onRequestClose={() => navigation.goBack()}
+        >
+            <View style={styles.overlay}>
+                <View style={styles.popupContainer}>
+                    {/* Header with close icon and title */}
+                    <View style={styles.header}>
+                        <TouchableOpacity
+                            style={styles.closeButton}
+                            onPress={() => navigation.goBack()}
+                        >
+                            <Icon name="close" size={24} color="#000" />
+                        </TouchableOpacity>
+                        <Text style={styles.headerTitle}>Upload Short Video</Text>
+                    </View>
+
+                    {/* Input for video title */}
+                    <Text style={styles.label}>Enter Video Title:</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={videoTitle}
+                        onChangeText={setVideoTitle}
+                        placeholder="Video Title"
+                        placeholderTextColor="#666"
+                    />
+
+                    {/* Button to pick video */}
+                    <TouchableOpacity style={styles.button} onPress={pickVideo}>
+                        <Text style={styles.buttonText}>Select Video</Text>
+                    </TouchableOpacity>
+                    {videoFile && (
+                        <Text style={styles.fileName}>Selected: {videoFile.name}</Text>
+                    )}
+
+                    {/* Button to upload video */}
+                    <TouchableOpacity style={styles.uploadButton} onPress={handleUpload}>
+                        <Text style={styles.buttonText}>Upload Video</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </Modal>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
+    overlay: {
         flex: 1,
-        padding: 20,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
         justifyContent: 'center',
-        backgroundColor: '#f5f5f5',
+        alignItems: 'center',
+    },
+    popupContainer: {
+        width: '90%',
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        padding: 20,
+        elevation: 5,
+    },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20,
+        position: 'relative',
+    },
+    closeButton: {
+        position: 'absolute',
+        left: 10, // Adjust position to place the close button on the left side
+        top: '50%',
+        transform: [{ translateY: -12 }], // Vertically center the button
+        zIndex: 1, // Ensure the close button is above other elements
+    },
+    headerTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#000',
+        flex: 1,
+        textAlign: 'center',
     },
     label: {
         fontSize: 16,
         marginBottom: 10,
+        color: '#000',
     },
     input: {
         borderWidth: 1,
@@ -86,9 +173,10 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         marginBottom: 20,
+        color: '#000',
     },
     button: {
-        backgroundColor: '#007bff',
+        backgroundColor: '#D3D3D3',
         padding: 15,
         borderRadius: 5,
         alignItems: 'center',
@@ -102,14 +190,15 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     buttonText: {
-        color: '#fff',
-        fontSize: 16,
+        color: '#000',
+        fontSize: 14,
+        fontWeight: 'bold',
     },
     fileName: {
         marginTop: 10,
         fontSize: 14,
-        color: '#333',
+        color: '#000',
     },
 });
 
-export default VideoUploader;
+export default VideoUploaderPopup;

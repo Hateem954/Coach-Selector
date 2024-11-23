@@ -17,7 +17,7 @@ const DashboardScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Dashboard</Text>
+            <Text style={styles.title}>New Additon</Text>
 
             {/* List of options */}
             <FlatList
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#f4f4f4',
+        backgroundColor: 'lightgrey',
     },
     title: {
         fontSize: 24,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     item: {
-        backgroundColor: '#fff',
+        backgroundColor: '#light grey',
         padding: 15,
         marginBottom: 10,
         borderRadius: 5,
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     },
     itemText: {
         fontSize: 18,
-        color: '#333',
+        color: '#000',
     },
 });
 

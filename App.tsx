@@ -14,6 +14,7 @@ import AddPost from './src/post'; // Import AddPost screen
 import PostsScreen from './src/clickpost'; // Import PostsScreen (clickpost)
 import hasAccademy from './src/hasAccademy';
 import UploadVideo from './src/addVideo';
+import MessagesScreen from './src/messages';
 
 
 
@@ -70,6 +71,11 @@ const App = () => {
           options={{
             headerShown: false,
           }}
+        />
+        <Stack.Screen
+          name="Messages"
+          component={MessagesScreen}
+          options={{ headerShown: false, }} // Display header for MessagesScreen
         />
         <Stack.Screen
           name="CoachDetails"
