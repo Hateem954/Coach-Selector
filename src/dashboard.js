@@ -17,8 +17,16 @@
 //             {/* App Bar at the Top */}
 //             <View style={[styles.appBar, isDarkMode && styles.darkAppBar]}>
 //                 <Text style={[styles.appBarTitle, isDarkMode && styles.darkAppBarTitle]}>
-//                     Dashboard
+//                     Coach-Selector
 //                 </Text>
+
+//                 {/* Message Icon with Rotation */}
+//                 <TouchableOpacity
+//                     style={styles.messageIconContainer}
+//                     onPress={() => navigation.navigate('Messages')} // Navigate to the Messages page
+//                 >
+//                     <Icon name="send" size={24} color={isDarkMode ? '#fff' : '#000'} style={styles.rotatedIcon} />
+//                 </TouchableOpacity>
 //             </View>
 
 //             {/* Main Content Area */}
@@ -48,9 +56,9 @@
 //                     onPress={() => navigation.navigate('Settings', { toggleTheme, isDarkMode })}
 //                 >
 //                     <View style={styles.circleIconContainer}>
-//                         <Icon name="settings" size={24} color={isDarkMode ? '#000' : '#000'} />
+//                         <Icon name="search" size={24} color={isDarkMode ? '#000' : '#000'} />
 //                     </View>
-//                     <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Settings</Text>
+//                     <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Search</Text>
 //                 </TouchableOpacity>
 //                 <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Profile')}>
 //                     <View style={styles.circleIconContainer}>
@@ -74,8 +82,8 @@
 //     },
 //     appBar: {
 //         flexDirection: 'row',
-//         justifyContent: 'center', // Center aligns the text horizontally
-//         alignItems: 'center', // Vertically center the text
+//         justifyContent: 'space-between', // Space between title and icon
+//         alignItems: 'center', // Vertically center the items
 //         paddingHorizontal: 15,
 //         paddingVertical: 10,
 //         backgroundColor: '#fff',
@@ -91,13 +99,19 @@
 //         backgroundColor: '#444',
 //     },
 //     appBarTitle: {
-//         fontSize: 25,
-//         color: '#333',
+//         fontSize: 20,
+//         color: '#000',
 //         fontWeight: 'bold',
-//         textAlign: 'center',
+//         fontStyle: 'italic',
 //     },
 //     darkAppBarTitle: {
 //         color: '#fff',
+//     },
+//     messageIconContainer: {
+//         padding: 10, // Adds some padding around the icon
+//     },
+//     rotatedIcon: {
+//         transform: [{ rotate: '-45deg' }], // Rotate the icon by 65 degrees
 //     },
 //     content: {
 //         flex: 1,
@@ -141,6 +155,8 @@
 // });
 
 // export default DashboardScreen;
+
+
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -160,7 +176,7 @@ const DashboardScreen = () => {
             {/* App Bar at the Top */}
             <View style={[styles.appBar, isDarkMode && styles.darkAppBar]}>
                 <Text style={[styles.appBarTitle, isDarkMode && styles.darkAppBarTitle]}>
-                    Dashboard
+                    Coach-Selector
                 </Text>
 
                 {/* Message Icon with Rotation */}
@@ -168,7 +184,7 @@ const DashboardScreen = () => {
                     style={styles.messageIconContainer}
                     onPress={() => navigation.navigate('Messages')} // Navigate to the Messages page
                 >
-                    <Icon name="send" size={28} color={isDarkMode ? '#fff' : '#000'} style={styles.rotatedIcon} />
+                    <Icon name="send" size={24} color={isDarkMode ? '#fff' : '#000'} style={styles.rotatedIcon} />
                 </TouchableOpacity>
             </View>
 
@@ -179,12 +195,26 @@ const DashboardScreen = () => {
 
             {/* Bottom Navigation Bar */}
             <View style={[styles.bottomNav, isDarkMode && styles.darkBottomNav]}>
+                {/* Home */}
                 <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Home')}>
                     <View style={styles.circleIconContainer}>
                         <Icon name="home" size={24} color={isDarkMode ? '#000' : '#000'} />
                     </View>
                     <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Home</Text>
                 </TouchableOpacity>
+
+                {/* Search */}
+                <TouchableOpacity
+                    style={styles.navItem}
+                    onPress={() => navigation.navigate('SearchScreen')}
+                >
+                    <View style={styles.circleIconContainer}>
+                        <Icon name="search" size={24} color={isDarkMode ? '#000' : '#000'} />
+                    </View>
+                    <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Search</Text>
+                </TouchableOpacity>
+
+                {/* Add Posts */}
                 <TouchableOpacity
                     style={styles.navItem}
                     onPress={() => navigation.navigate('PostsScreen')}
@@ -192,18 +222,11 @@ const DashboardScreen = () => {
                     <View style={styles.circleIconContainer}>
                         <Icon name="add-circle" size={28} color={isDarkMode ? '#000' : '#000'} />
                     </View>
-                    <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Add Post</Text>
+                    <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Add Posts</Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.navItem}
-                    onPress={() => navigation.navigate('Settings', { toggleTheme, isDarkMode })}
-                >
-                    <View style={styles.circleIconContainer}>
-                        <Icon name="settings" size={24} color={isDarkMode ? '#000' : '#000'} />
-                    </View>
-                    <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Settings</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Profile')}>
+
+                {/* Profile */}
+                <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('ClickProfile')}>
                     <View style={styles.circleIconContainer}>
                         <Icon name="person" size={24} color={isDarkMode ? '#000' : '#000'} />
                     </View>
@@ -242,10 +265,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#444',
     },
     appBarTitle: {
-        fontSize: 25,
-        color: '#333',
+        fontSize: 20,
+        color: '#000',
         fontWeight: 'bold',
-        textAlign: 'center',
+        fontStyle: 'italic',
     },
     darkAppBarTitle: {
         color: '#fff',
@@ -254,7 +277,7 @@ const styles = StyleSheet.create({
         padding: 10, // Adds some padding around the icon
     },
     rotatedIcon: {
-        transform: [{ rotate: '75deg' }], // Rotate the icon by 65 degrees
+        transform: [{ rotate: '-45deg' }], // Rotate the icon by 65 degrees
     },
     content: {
         flex: 1,

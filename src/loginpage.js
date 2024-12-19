@@ -86,7 +86,6 @@ const LoginScreen = ({ navigation }) => {
         </View>
     );
 };
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -97,6 +96,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         marginBottom: 20,
+        fontSize: 80, // Corrected the typo to 'fontSize'
     },
     label: {
         alignSelf: 'flex-start',

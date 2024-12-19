@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
-
-
+import Icon from 'react-native-vector-icons/MaterialIcons'; // Importing the Icon component
 
 const DashboardScreen = ({ navigation }) => {
     // Data for the list
@@ -17,7 +16,13 @@ const DashboardScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>New Additon</Text>
+            {/* Header Section */}
+            <View style={styles.header}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.closeIconContainer}>
+                    <Icon name="close" size={24} color="#000" />
+                </TouchableOpacity>
+                <Text style={styles.title}>New Addition</Text>
+            </View>
 
             {/* List of options */}
             <FlatList
@@ -42,14 +47,26 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: 'lightgrey',
     },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    closeIconContainer: {
+        position: 'absolute',
+        left: 10, // Adjust position to place the close button on the left side
+        top: '50%',
+        transform: [{ translateY: -12 }], // Vertically center the button
+        zIndex: 1, // Ensure the close button is above other elements
+    },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 20,
         textAlign: 'center',
+        flex: 1, // Ensures the title takes the remaining space
     },
     item: {
-        backgroundColor: '#light grey',
+        backgroundColor: '#fff', // Corrected the color here to ensure it's valid
         padding: 15,
         marginBottom: 10,
         borderRadius: 5,

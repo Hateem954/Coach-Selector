@@ -1,135 +1,120 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './src/Homepage'; // Import HomeScreen
-import LoginScreen from './src/loginpage'; // Import LoginScreen
-import Signup from './src/signup'; // Import SignupScreen
-import ProfileScreen from './src/profileScreen'; // Import ProfileScreen
-import DashboardScreen from './src/dashboard'; // Import DashboardScreen
-import CoachDetailsScreen from './src/coachDetails'; // Import CoachDetailsScreen
-import PlayerSelectorScreen from './src/playerSelector'; // Import PlayerSelectorScreen
-import SettingsScreen from './src/settingscreen'; // Import SettingsScreen
-import playerparent from './src/playerparent'; // Import parent details screen
-import AddPost from './src/post'; // Import AddPost screen
-import PostsScreen from './src/clickpost'; // Import PostsScreen (clickpost)
-import hasAccademy from './src/hasAccademy';
+
+// Import all screens
+import HomeScreen from './src/Homepage';
+import LoginScreen from './src/loginpage';
+import Signup from './src/signup';
+import ProfileScreen from './src/profileScreen';
+import DashboardScreen from './src/dashboard';
+import CoachDetailsScreen from './src/coachDetails';
+import PlayerSelectorScreen from './src/playerSelector';
+import SettingsScreen from './src/settingscreen';
+import PlayerParent from './src/playerparent';
+import AddPost from './src/post';
+import ClickPost from './src/clickpost';
+import HasAcademy from './src/hasAccademy';
 import UploadVideo from './src/addVideo';
 import MessagesScreen from './src/messages';
-
-
+import ClickProfile from './src/clickprofile';
 
 const Stack = createNativeStackNavigator();
+
+// Common header options
+const headerOptions = {
+  headerTitleAlign: 'center',
+  headerStyle: { backgroundColor: '#D3D3D3' },
+  headerTitleStyle: { fontWeight: 'bold' },
+};
 
 const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Welcome">
+        {/* Home Screen */}
         <Stack.Screen
           name="Welcome"
           component={HomeScreen}
-          options={{
-            headerTitleAlign: 'center',
-            headerStyle: { backgroundColor: '#D3D3D3' },
-            headerTitleStyle: { fontWeight: 'bold' },
-          }}
+          options={{ headerShown: false }}
         />
+
+        {/* Login Screen */}
         <Stack.Screen
           name="Login"
           component={LoginScreen}
-          options={{
-            headerTitleAlign: 'center',
-            headerStyle: { backgroundColor: '#D3D3D3' },
-            headerTitleStyle: { fontWeight: 'bold' },
-          }}
+          options={{ headerShown: false }}
         />
+
+        {/* Signup Screen */}
         <Stack.Screen
           name="Signup"
           component={Signup}
-          options={{
-            headerTitleAlign: 'center',
-            headerStyle: { backgroundColor: '#D3D3D3' },
-            headerTitleStyle: { fontWeight: 'bold' },
-          }}
+          options={headerOptions}
         />
+
+        {/* Profile and Dashboard */}
         <Stack.Screen
           name="playerParent"
-          component={playerparent}
-          options={{
-            headerShown: false,
-          }}
+          component={PlayerParent}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Profile"
           component={ProfileScreen}
-          options={{
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Dashboard"
           component={DashboardScreen}
-          options={{
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
+
+        {/* Other Screens */}
         <Stack.Screen
           name="Messages"
           component={MessagesScreen}
-          options={{ headerShown: false, }} // Display header for MessagesScreen
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="CoachDetails"
           component={CoachDetailsScreen}
-          options={{
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="PlayerSelector"
           component={PlayerSelectorScreen}
-          options={{
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Settings"
           component={SettingsScreen}
-          options={{
-            headerTitleAlign: 'center',
-            headerStyle: { backgroundColor: '#D3D3D3' },
-            headerTitleStyle: { fontWeight: 'bold' },
-          }}
+          options={headerOptions}
         />
         <Stack.Screen
           name="AddPost"
           component={AddPost}
-          options={{
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
-        {/* Add PostsScreen to the Stack */}
         <Stack.Screen
-          name="PostsScreen"
-          component={PostsScreen}
-          options={{
-            headerShown: false,
-          }}
+          name="ClickProfile"
+          component={ClickProfile}
+          options={{ headerShown: false }}
         />
-
+        <Stack.Screen
+          name="ClickPost"
+          component={ClickPost}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="UploadVideo"
           component={UploadVideo}
-          options={{
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
-
         <Stack.Screen
-          name="hasAccademy"
-          component={hasAccademy}
-          options={{
-            headerShown: false,
-          }}
+          name="HasAcademy"
+          component={HasAcademy}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
