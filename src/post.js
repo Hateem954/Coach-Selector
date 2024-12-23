@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
     Alert,
     KeyboardAvoidingView,
-    Platform,
+    Platform, 
     Modal,
 } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
@@ -16,7 +16,7 @@ import axios from 'axios';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
-const AddPostScreen = ({ visible, onClose }) => {
+const AddPostScreen = ({ visible, onClose = () => { } }) => {  // Default onClose if not passed
     const [postTitle, setPostTitle] = useState('');
     const [postName, setPostName] = useState('');
     const [postDescription, setPostDescription] = useState('');
@@ -115,7 +115,7 @@ const AddPostScreen = ({ visible, onClose }) => {
             >
                 <View style={styles.popupContainer}>
                     <View style={styles.header}>
-                        <TouchableOpacity style={styles.closeButton} onPress={() => navigation.goBack()}>
+                        <TouchableOpacity style={styles.closeButton} onPress={onClose}>
                             <Ionicons name="close" size={28} color="#000" />
                         </TouchableOpacity>
                         <Text style={styles.title}>Create a New Post</Text>
