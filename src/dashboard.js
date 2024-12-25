@@ -301,23 +301,19 @@
 
 
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Image, ScrollView, RefreshControl } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
+import { useTheme } from './Settingpage/themecontext'; // Import theme context
 
 const DashboardScreen = () => {
     const navigation = useNavigation();
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const { isDarkMode, toggleTheme } = useTheme(); // Use context to manage theme state
     const [data, setData] = useState([]);
     const [expandedPostIndex, setExpandedPostIndex] = useState(null);
     const [refreshing, setRefreshing] = useState(false);
-
-    // Function to toggle theme
-    const toggleTheme = () => {
-        setIsDarkMode((prevMode) => !prevMode);
-    };
 
     // Function to fetch posts from the API
     const getPost = async () => {
@@ -419,9 +415,9 @@ const DashboardScreen = () => {
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Settings', { toggleTheme, isDarkMode })}>
                     <View style={styles.circleIconContainer}>
-                        <Icon name="search" size={24} color={isDarkMode ? '#000' : '#000'} />
+                        <Icon name="settings" size={24} color={isDarkMode ? '#000' : '#000'} />
                     </View>
-                    <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Search</Text>
+                    <Text style={[styles.navText, isDarkMode && styles.darkNavText]}>Setting</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('ClickProfile')}>
                     <View style={styles.circleIconContainer}>
