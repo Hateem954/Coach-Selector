@@ -130,25 +130,12 @@ const CoachDetailsScreen = ({ navigation }) => {
             });
 
             Alert.alert('Success', 'Coach details saved successfully!');
-
+            // navigation.navigate('Dashboard');
             if (academy === 'Yes') {
                 // Navigate to the HasAcademy page with all the data
-                navigation.navigate('hasAccademy', {
-                    coachData: {
-                        name,
-                        coachLocation,
-                        categoryId,
-                        level,
-                        experience,
-                        phone,
-                        status,
-                        academy,
-                        certificate: certificate ? certificate.name : null,
-                        image: image ? image.fileName : null,
-                    },
-                });
+                navigation.navigate('HasAcademy');
             } else {
-                navigation.navigate('Dashboard'); // Navigate to the Dashboard
+                // navigation.navigate('academy'); // Navigate to the Dashboard
             }
         } catch (error) {
             console.error('Error saving coach details:', error.message);
@@ -244,8 +231,8 @@ const CoachDetailsScreen = ({ navigation }) => {
                     style={styles.picker}
                 >
                     <Picker.Item label="Select Academy" value="" />
-                    <Picker.Item label="Yes" value="Yes" />
-                    <Picker.Item label="No" value="No" />
+                    <Picker.Item label="Registered" value="Yes" />
+                    <Picker.Item label="Created" value="Yes" />
                 </Picker>
             </View>
 

@@ -65,8 +65,10 @@ const AcademyForm = ({ navigation }) => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            Alert.alert('Success', 'Academy details submitted successfully!');
-            navigation.navigate('Dashboard'); // Navigate to Dashboard screen
+            // Alert.alert('Success', 'Academy details submitted successfully!');
+            
+            Alert.alert('Alert', 'Your request will be submitted to the admin plz wait for conformation');
+            navigation.navigate('Login'); // Navigate to Dashboard screen
         } catch (error) {
             console.error('Error submitting form:', error.response?.data || error.message);
             Alert.alert('Error', 'Failed to submit the form. Please try again.');

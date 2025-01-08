@@ -3,23 +3,21 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // Import all screens
-import { ThemeProvider } from './src/Settingpage/themecontext'; // Import the ThemeProvider
-import HomeScreen from './src/Homepage';
-import LoginScreen from './src/loginpage';
-import Signup from './src/signup';
-import ProfileScreen from './src/profileScreen';
-import DashboardScreen from './src/dashboard';
-import CoachDetailsScreen from './src/coachDetails';
-import PlayerSelectorScreen from './src/playerSelector';
-import SettingsScreen from './src/settingscreen';
-import PlayerParent from './src/playerparent';
-import AddPost from './src/post';
-import ClickPost from './src/clickpost';
-import HasAcademy from './src/hasAccademy';
-import UploadVideo from './src/addVideo';
-import MessagesScreen from './src/messages';
-import ClickProfile from './src/clickprofile';
-import theme from './src/Settingpage/theme';
+import { ThemeProvider } from './src/Settingpage/themecontext'; // ThemeProvider for theme context
+import HomeScreen from './src/Homepage'; // Home screen
+import LoginScreen from './src/loginpage'; // Login screen
+import Signup from './src/signup'; // Signup screen
+import ProfileScreen from './src/profileScreen'; // Profile screen
+import DashboardScreen from './src/dashboard'; // Dashboard screen
+import CoachDetailsScreen from './src/coachDetails'; // Coach Details screen
+import PlayerSelectorScreen from './src/playerSelector'; // Player Selector screen
+import SettingsScreen from './src/settingscreen'; // Settings screen
+import AddPost from './src/post'; // Add Post screen
+import ClickPost from './src/clickpost'; // Click Post screen
+import HasAcademy from './src/hasAccademy'; // Has Academy screen
+import UploadVideo from './src/addVideo'; // Upload Video screen
+import MessagesScreen from './src/messages'; // Messages screen
+import ClickProfile from './src/clickprofile'; // Click Profile screen
 
 const Stack = createNativeStackNavigator();
 
@@ -57,12 +55,7 @@ const App = () => {
             options={headerOptions}
           />
 
-          {/* Profile and Dashboard */}
-          <Stack.Screen
-            name="playerParent"
-            component={PlayerParent}
-            options={{ headerShown: false }}
-          />
+          {/* Other Screens */}
           <Stack.Screen
             name="Profile"
             component={ProfileScreen}
@@ -118,11 +111,6 @@ const App = () => {
           <Stack.Screen
             name="HasAcademy"
             component={HasAcademy}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="theme"
-            component={theme}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
